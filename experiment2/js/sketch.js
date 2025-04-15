@@ -53,24 +53,48 @@ function setup() {
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);    
-  // call a method on the instance
-  myInstance.myMethod();
+  let horizonY = height / 3;
+  let skyTop = color(64, 156, 255);   
+  let skyBottom = color(201, 245, 255); 
+  for (let y = 0; y <= horizonY; y++) {
+    let inter = map(y, 0, horizonY, 0, 1);
+    let c = lerpColor(skyTop, skyBottom, inter);
+    stroke(c);
+    line(0, y, width, y);
+  }
 
-  // Set up rotation for the rectangle
-  push(); // Save the current drawing context
-  translate(centerHorz, centerVert); // Move the origin to the rectangle's center
-  rotate(frameCount / 100.0); // Rotate by frameCount to animate the rotation
-  fill(234, 31, 81);
   noStroke();
-  rect(-125, -125, 250, 250); // Draw the rectangle centered on the new origin
-  pop(); // Restore the original drawing context
+  fill(90, 80, 120);
+  triangle(0, horizonY, 300, horizonY, 150, 100);
+  triangle(250, horizonY, 480, horizonY, 370, 130);
 
-  // The text is not affected by the translate and rotate
-  fill(255);
-  textStyle(BOLD);
-  textSize(140);
-  text("p5*", centerHorz - 105, centerVert + 40);
+  fill(70, 130, 180);
+  rect(0, horizonY, 0.6 * width, height - horizonY);
+
+  fill(238, 214, 175);
+  rect(0.6 * width, horizonY, width - 0.6 * width, height - horizonY);
+
+  fill(34, 139, 34);
+  noStroke();
+  ellipse(700, 520, 40, 20);
+  ellipse(770, 580, 60, 30);
+  ellipse(650, 450, 20, 10);
+
+  let flowerCount = 3; 
+  stroke(0, 128, 0);
+  strokeWeight(4);
+  for (let i = 0; i < flowerCount; i++) {
+    let flowerX = random(30, 150);
+    let flowerStemTopY = random(height - 150, height - 80);
+    
+    line(flowerX, height, flowerX, flowerStemTopY);
+    
+    noStroke();
+    fill(128, 0, 128);
+    ellipse(flowerX, flowerStemTopY, 10, 20);
+    
+    stroke(0, 128, 0);
+  }
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
